@@ -1,0 +1,79 @@
+
+$bar-width:4px;
+
+#container {  
+  background-color: orange;
+  display:grid;
+  margin:0px 2px;  
+  padding:5px;
+  grid-template-columns: min-content Auto min-content;
+  grid-template-rows: 20px auto;
+  grid-template-areas: "color-bar  equipment         right-container"
+                       "color-bar  app-job           app-job"
+                       "sub-menu   sub-menu          sub-menu";
+  background-color: #e8e8e8;
+
+  #color-bar {
+    grid-area: color-bar;
+    width: $bar-width;    
+  }
+ 
+  #equipment {    
+    margin-left: 4px;        
+    grid-area: equipment;
+    justify-self:start;
+    align-self: center;
+  }
+
+  #right-container {
+    grid-area: right-container;
+    display: flex;  
+    justify-content: flex-end;
+  }
+  #job-count {   
+    display: grid;  
+    height: 25px;
+    align-self: center;
+    align-content: center;
+    border-radius: 25px;
+    background-color: white;
+    padding: 0 6px;
+  }
+
+  #expander-icon-button {       
+    height: 20px;
+    width:  20px;
+    margin: 0 0 0 10px;
+    transition: transform 0.4s ease;        
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --border-width: 0;
+    grid-area: expander-icon-button;
+    justify-self:end;     
+  }  
+}
+
+.sub-menu {
+ // margin-top:5px;
+  padding-left: $bar-width;  
+  grid-area: sub-menu;
+  height: 0;
+  overflow: hidden;
+  background: #f0f0f0;
+  font-size: 14px;
+  transition: height 0.4s ease;  
+
+  div {
+    padding: 0px 0;
+  }
+  
+  :not(:last-child) {
+    border-bottom: 1px solid #4b4a5e;          
+   }
+}
+
+ .expanded {
+    transform: rotate(-180deg);
+  };

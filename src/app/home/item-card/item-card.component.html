@@ -1,0 +1,18 @@
+<div id='container'>
+  <div id='color-bar' [style.background-color]='item?.colour'></div>
+  <div id='equipment'>{{item?.equipment}}</div>
+  <div id='right-container'>
+    <div id='item-count'>{{item?.jobs.length}}</div>
+    <ion-button [style.visibility]="item?.jobs.length > 1 ? 'visible' : 'hidden'" shape='round' slots='icon-only' fill='clear' 
+      id='expander-icon-button' [ngClass]="{'expanded': isOpen}" (click)="toggle()">
+      <ion-icon name="chevron-up-outline"></ion-icon>
+    </ion-button>  
+  </div>
+  <div>Current job</div>
+
+  <div class="sub-menu" #subMenu [style.height.px]="isOpen ? subMenu.scrollHeight : 0">
+    <div *ngFor='let job of item?.jobs | slice:1'>
+      <div>{{job}}</div>
+    </div>
+  </div>  
+</div>

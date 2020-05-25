@@ -1,0 +1,22 @@
+<ion-header [translucent]="true" #header>
+  <ion-toolbar>
+    <ion-title>
+      Job list
+    </ion-title>
+    <ion-buttons slot="start">
+      <button (click)='add()'>Add</button>
+    </ion-buttons>  
+  </ion-toolbar>
+  <ion-searchbar class='card-view-searchbar' placeholder="Search" [(ngModel)]="searchText" (ionChange)="filterItems()">
+  </ion-searchbar>
+</ion-header>
+<ion-content>
+    
+  <ag-grid-angular style="width: 100%; height: 100%" class="ag-theme-alpine" 
+    [gridOptions]="gridOptions">
+  </ag-grid-angular>  
+</ion-content>
+
+<ng-template #itemCard let-row>
+  <app-item-card [item]='row'></app-item-card>  
+</ng-template>
