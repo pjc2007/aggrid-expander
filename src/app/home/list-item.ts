@@ -10,12 +10,12 @@ constructor(public refresh : () => void) {}
     let height = 72;
     if (this.isOpen)
       height += (this.jobs.length - 1) * 40;
+    
     return height;
   }
 
   public setIsOpen(val: boolean) {
     this.isOpen = val;    
     this.refresh();
-  }
-  
+  }  
 }

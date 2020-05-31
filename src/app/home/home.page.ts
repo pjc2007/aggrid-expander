@@ -10,14 +10,11 @@ import { TemplateRendererComponent } from '../template-renderer/template-rendere
 })
 export class HomePage implements AfterViewInit {
   @ViewChild('itemCard', {static:false}) itemCard: TemplateRef<any>;
-
-  columnDefs = [
-    { headerName: 'equipment', field: 'equipment' },    
-  ];
   
   public items: Array<ListItem>;
 
   gridOptions: GridOptions = {  
+    enableSorting: true,
     // Makes col take up full grid
     onGridSizeChanged: () => {
       this.gridOptions.api.sizeColumnsToFit();
@@ -36,14 +33,15 @@ export class HomePage implements AfterViewInit {
   public searchText: string;
 
   public ngAfterViewInit(): void {
-    this.setData();
-    let i = 0;    
+    
+    const self = this;
     this.gridOptions.immutableData = true;
     this.gridOptions.animateRows = true
     this.gridOptions.api.setColumnDefs([
       {
         headerName: 'myheader',
-        //colId: 'equipment',
+        comparator: self.dateComparator,
+        sortable: true,
         field: 'equipment',
         cellStyle: { padding: 0 },
         //autoHeight: true,
@@ -53,9 +51,16 @@ export class HomePage implements AfterViewInit {
         },        
       },
     ]);
+
+    this.setData();
   }
 
-  i = 0;
+  private dateComparator(valueA, valueB, nodeA, nodeB, isInverted): number {
+    console.log('sorting');
+    return 1;
+  }
+  
+  private i : number = 0;
   public add() {
     let item = new ListItem(() => this.refreshCells());
 
@@ -64,11 +69,12 @@ export class HomePage implements AfterViewInit {
     item.location = "LocationA";
 
     item.jobs = new Array<string>();
-    item.jobs.push("New job");
-    item.jobs.unshift("New job beginning");
+    item.jobs.push("A New job");
+    item.jobs.unshift("A New job beginning");
     this.items.push(item);
     this.filtered = [...this.items];    
     this.gridOptions.api.setRowData(this.filtered);
+    this.gridOptions.api.redrawRows();
   }
 
   private refreshCells(): void {
@@ -78,7 +84,7 @@ export class HomePage implements AfterViewInit {
 
   private setData() : void {
   this.items = new Array<ListItem>();  
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 30; i++) {
       let item = new ListItem(() => this.refreshCells());
 
       item.colour = 'green'
